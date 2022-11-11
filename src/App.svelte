@@ -14,11 +14,5 @@
       }
   })
 </script>
-<nav>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/contacts">Contacts</a>
-    <a href="/faq">FAQ</a>
-</nav>
 
 <svelte:component {...params} this={dynamicPage} />

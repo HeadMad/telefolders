@@ -2,7 +2,9 @@
   import getFiles from "../lib/getFiles";
   export let path;
 
-  // let filesPromise = getFiles(path);
+
+  let filesPromise = getFiles(path);
+
 </script>
 
 {#await filesPromise}
@@ -40,6 +42,7 @@
     width: 180px;
     object-fit: cover;
   }
+
 
   .image-wrap {
     text-align: center;

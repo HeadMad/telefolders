@@ -4,7 +4,7 @@ export async function send(request) {
   const requestJson = JSON.stringify(request);
   const response = await fetch(url + `?${encodeURI(requestJson)}`);
   const result = await response.json();
-  console.log(result);
+  
   if (result.ok)
     return result.result;
   else 
