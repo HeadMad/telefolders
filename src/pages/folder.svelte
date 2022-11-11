@@ -1,6 +1,9 @@
 <script>
-  import getFiles from "./lib/getFiles";
-  let filesPromise = getFiles(window.location.pathname);
+  import getFiles from "../lib/getFiles";
+  export let path;
+
+  let filesPromise = getFiles(path);
+
 </script>
 
 {#await filesPromise}
@@ -29,20 +32,21 @@
 
 <style>
   img {
-    height: 180px;
+    margin: 10px;
+    /* height: 180px;
     width: 180px;
-    object-fit: cover;
+    object-fit: cover; */
   }
 
-  img:hover {
+  /* img:hover {
     object-fit: contain;
-  }
+  } */
 
-  .image-wrap {
+  /* .image-wrap {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
-  }
+  } */
 
   pre {
     background-color: aliceblue;
