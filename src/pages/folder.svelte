@@ -33,9 +33,9 @@
 <style>
   img {
     margin: 10px;
-    /* height: 180px;
+    height: 180px;
     width: 180px;
-    object-fit: cover; */
+    object-fit: cover;
   }
 
   /* img:hover {
