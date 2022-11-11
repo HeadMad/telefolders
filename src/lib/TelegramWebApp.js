@@ -1,8 +1,7 @@
-const webHookUrl = 'https://script.google.com/macros/s/AKfycbw9biQ8mjTJSj1clIL30uqnSkLVKcfEveTm894pDuvXsp7IcPHPTe4GuaxO1D7yJLUF/exec?target=TeleFoldersBot';
+const backendTelegramUrl = 'https://script.google.com/macros/s/AKfycbzt98FK5wXdiPIc7QKioisHiKIdVEE3Rl1fM128uSgmj9OK2es_vPJeJaFOQyInv5io/exec';
+const backendWebUrl = 'https://script.google.com/macros/s/AKfycbxwc3I6mxH3-Pd6pfxVQNAIt034vRYSj9d0x0XNtiS7zyBint8aEIEgFXzP03pe7_k/exec';
 
 let WebApp;
-let query_id = null;
-
 
 /**
  * 
@@ -10,7 +9,6 @@ let query_id = null;
  */
 export function initWebApp (Telegram) {
   WebApp = Telegram.WebApp;
-  query_id = WebApp.initDataUnsafe.quey_id;
   return WebApp;
 }
 
@@ -20,23 +18,22 @@ export function initWebApp (Telegram) {
  * @returns 
  */
 export async function sendWebAppQuery (data) {
-  const user = WebApp.initDataUnsafe?.user ?? null;
-  const chat =  WebApp.initDataUnsafe?.chat ??  user;
-  const response = await fetch(webHookUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    mode: 'no-cors',
-    body: JSON.stringify({
-      update_id: null,
-      web_app_query: {
-        query_id,
-        user,
-        chat,
-        data,
-      }
-    })
-  });
-  return response.json();
+  const initData = WebApp.initDataUnsafe;
+  const user = initData?.user ?? null;
+  const chat =  initData?.chat ??  user;
+  const query_id = initData?.query_id ?? null;
+
+  const request = {
+    method: 'getUser',
+    params: [{
+      id: user.id
+    }]
+  };
+
+  const requestJson = JSON.stringify(request);
+
+  const response = await fetch(backendWebUrl + `?${encodeURI(requestJson)}`);
+  const result = await response.json();
+
+  return result;
 }

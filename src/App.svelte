@@ -1,36 +1,24 @@
 <script>
-  import { initWebApp, sendWebAppQuery } from "./lib/TelegramWebApp.js";
-  const WebApp = initWebApp(window.Telegram);
-  let sendResponse;
+    import { onMount } from 'svelte'
+    import route from './lib/route';
+  
+  const {page, params} = route(window.location.pathname);
+  let dynamicPage = null;
 
-  function sendDataToWebHook() {
-    sendResponse = sendWebAppQuery({ hello: "there" });
-  }
+  onMount(async () => {
+      try {
+          dynamicPage = (await import(`./pages/${page}.svelte`)).default
+      } catch (e) {
+          // Handle errors if the dynamic route doesn't load:
+          console.log(e.message)
+      }
+  })
 </script>
+<nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contacts">Contacts</a>
+    <a href="/faq">FAQ</a>
+</nav>
 
-<!-- <pre>
-  {JSON.stringify(WebApp, null, ' ')}
-</pre> -->
-{#if sendResponse}
-  <pre>
-{#await sendResponse}
-      Send data to telegram bot
-    {:then response}
-      {JSON.stringify(response, null, " ")};
-    {:catch error}
-      {error}
-    {/await}
-  </pre>
-{/if}
-
-<button on:click={sendDataToWebHook}>Send Web App Query</button>
-
-<style>
-  pre {
-    background: #eee;
-    padding: 1em 1.5em;
-    overflow-x: auto;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-</style>
+<svelte:component {...params} this={dynamicPage} />
