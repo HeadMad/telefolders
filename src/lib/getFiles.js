@@ -14,6 +14,6 @@ export default async function(path, userId) {
     console.log(doc)
       result.push(doc.data())
   });
-  result.sort((f1, f2) => f2.date - f1.date)
+  result.sort((f1, f2) => f1.date - f2.date)
   return result;
 }

@@ -1,9 +1,15 @@
 <script>
   import getFiles from "../lib/getFiles";
+  import send from '../lib/send';
   export let path;
 
 
-  let filesPromise = getFiles(path);
+  // let filesPromise = getFiles(path);
+  let filesPromise = send({
+    method: 'getFiles',
+    params: [path]
+  });
+  
 
 </script>
 
@@ -18,12 +24,14 @@
         <!-- <pre>{JSON.stringify(file, null, ' ')}</pre> -->
         {#if "type" in file}
           {#if file.type === "photo"}
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/telefolders.appspot.com/o/{encodeURIComponent(
-                file.thumb
-              )}?alt=media"
-              alt=""
-            />
+            <span>
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/telefolders.appspot.com/o/{encodeURIComponent(
+                  file.thumb
+                )}?alt=media"
+                alt=""
+              />
+            </span>
           {/if}
         {/if}
       {/each}
