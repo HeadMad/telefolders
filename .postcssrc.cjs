@@ -8,6 +8,8 @@
 
 module.exports = {
   plugins: {
-    'postcss-simple-media': {}
+    'postcss-simple-media': {},
+    'postcss-position': {},
+    'postcss-size': {},
   }
 }

@@ -1,21 +1,37 @@
 <script>
-  
+  import {outsideClick, headroom} from '../lib';
+  import  { Gallery } from '../components';
+  const images = Array.from(Array(24), (_, i) => ({
+    src: `https://picsum.photos/id/${230 + i}/200/320`,
+    isActive: false,
+    isSelected: false,
+  }));
+
+  let gallery;
+
 </script>
 
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
+<header  use:headroom={{duration: 200}}>
+  <button on:click={() => gallery.unselect()}>Uncheck All</button>
+  <button>Add Folder</button>
+  <button>Share Folder</button>
+</header>
 
-<style lang="postcss">
-span {
-  display: inline-block;
-  width: 100px;
-  height: 100px;
-  background-color: #eee;
-  
-  media: 300-;
-  background-color: tomato;
-}
+<Gallery bind:this={gallery} {images}/>
+
+<style>
+  :global(body) {
+    margin-top: 40px;
+  }
+  header {
+    padding: 0 16px;
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 40px;
+    background-color: #fff;
+    box-shadow: 0 0 4px 4px rgba(0,0,0,.1);
+    text-align: right;
+    z-index: 1000;
+    width: 100%;
+  }
 </style>
