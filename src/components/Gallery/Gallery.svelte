@@ -1,59 +1,78 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import { outsideClick } from "../../lib";
   export let images = [];
-  
-  let selectionOrder = images.reduce((akk, img, i) => {
-    if (img.isSelected)
-      akk.push(i)
-    return akk;
-  }, []);
+  export let allSelected = false;
+  export let selectedCount = 0;
 
-  export const unselect = () => {
-    images.forEach(img => img.isSelected = false);
+  let selectionOrder = [];
+  let selectiveCount = 0; 
+
+  const dispatch = createEventDispatcher();
+  
+  $: listImages = images.map((img) => {
+    if (img?.type !== 'folder')
+      selectiveCount++;
+
+    return {
+      ...img,
+      isSelected: false,
+      isActive: false,
+    }
+  });
+
+  export const unselectAll = () => {
+    listImages.forEach((img) => (img.isSelected = false));
     selectionOrder = [];
-  }
+    allSelected = false;
+    selectedCount = 0;
+  };
+  
+  export const selectAll = () => {
+    listImages.forEach((img, i) => {
+      if (img.type === "folder" || img.isSelected) return;
+      img.isSelected = true;
+      selectionOrder.push(i);
+      selectedCount = selectiveCount;
+      allSelected = true;
+    });
+  };
 </script>
 
 <div class="gallery">
-  {#each images as image, index}
-    <div class="box">
+  {#each listImages as image, index}
+    <div
+      class="box"
+      class:selected={image.isSelected}
+      class:active={image.isActive}
+    >
       <div class="inner">
-        <div
-        class="image"
-        class:active={image.isActive}
-        class:selected={image.isSelected}
-        >
+        <div class="image">
           <img
-            src={image.src}
+            src={image.thumb}
             alt=""
             on:click={() => (image.isActive = true)}
             use:outsideClick={() => (image.isActive = false)}
-            />
-          </div>
+          />
         </div>
-        <span
+      </div>
+      <span
         class="check"
-        class:selected={image.isSelected}
-        on:click={function() {
+        on:click={function () {
           if (image.isSelected) {
             selectionOrder.splice(selectionOrder.indexOf(index), 1);
-            selectionOrder = selectionOrder;
             image.isSelected = false;
-            // this.innerText = '';
+            allSelected = 
+            selectedCount--;
           } else {
+            selectedCount++;
             selectionOrder.push(index);
-            console.log(selectionOrder);
-            // selectionOrder = selectionOrder;
             image.isSelected = true;
-            // this.innerText = selectionOrder.find(index);
           }
-
+          allSelected = selectionOrder.length === selectiveCount;
         }}
-      >
-      {#if image.isSelected}
-        {selectionOrder.indexOf(index) + 1}
-      {/if}
-  </span>
+        data-order={image.isSelected ? selectionOrder.indexOf(index) + 1 : ""}
+      />
     </div>
   {/each}
 </div>
@@ -70,23 +89,28 @@
 
   .check {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 0;
+    top: 0;
+    padding: 10px 10px 5px 5px;
     cursor: pointer;
-    box-sizing: border-box;
+  }
+  .check::before {
+    content: attr(data-order);
+    display: block;
     size: 22px;
+    color: #fff;
+    line-height: 20px;
+    font-size: 13px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 50%;
     border: 2px solid #fff;
     background: #00000015;
-    color: #fff;
     text-align: center;
-    line-height: 22px;
-    font-size: 14px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
   }
 
-  .selected.check {
-    border: 0;
+  .selected .check::before {
+    border-width: 1px;
     background-color: #256aff;
   }
 
@@ -116,21 +140,20 @@
     padding-top: 100%;
   }
   .image {
-    position: absolute 4px;
+    position: absolute 2px;
   }
 
-  .image.selected {
+  .selected .image {
     position: absolute 15px;
   }
 
-  .image.active {
+  .active .image {
     position: fixed 0;
     background-color: #000000;
     z-index: 1000;
     display: flex;
   }
 
-  
   img {
     /* cursor: pointer; */
     width: 100%;
