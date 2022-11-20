@@ -18,6 +18,7 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "firebase": "^9.10.0"
+    "firebase": "^9.10.0",
+    "svelte-mdi": "github:headmad/svelte-mdi"
   }
 }

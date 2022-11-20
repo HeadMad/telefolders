@@ -1,7 +1,8 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { outsideClick } from "../../lib";
-  export let images = [];
+  import IconFolder from 'svelte-mdi/svg/folder.svelte';
+  export let items = [];
   export let allSelected = false;
   export let selectedCount = 0;
 
@@ -10,7 +11,7 @@
 
   const dispatch = createEventDispatcher();
   
-  $: listImages = images.map((img) => {
+  $: listImages = items.map((img) => {
     if (img?.type !== 'folder')
       selectiveCount++;
 
@@ -41,7 +42,18 @@
 
 <div class="gallery">
   {#each listImages as image, index}
-    <div
+  {#if image.type === 'folder'}
+  <div class="box">
+    <div class="inner">
+      <div class="folder" on:click={() => dispatch('clickFolder', image)}>
+        <div class="folder-name">
+          <IconFolder size="48"/><br>
+          {image.name}</div>
+      </div>
+    </div>
+  </div>
+  {:else}
+  <div
       class="box"
       class:selected={image.isSelected}
       class:active={image.isActive}
@@ -62,7 +74,6 @@
           if (image.isSelected) {
             selectionOrder.splice(selectionOrder.indexOf(index), 1);
             image.isSelected = false;
-            allSelected = 
             selectedCount--;
           } else {
             selectedCount++;
@@ -74,6 +85,7 @@
         data-order={image.isSelected ? selectionOrder.indexOf(index) + 1 : ""}
       />
     </div>
+  {/if}
   {/each}
 </div>
 
@@ -85,6 +97,19 @@
     content: "";
     display: block;
     clear: both;
+  }
+
+  .folder {
+    position: absolute 0;
+    display: flex;
+    cursor: pointer;
+  }
+
+  .folder-name {
+    text-align: center;
+    margin: auto;
+    font-size: .8em;
+    color: slategrey;
   }
 
   .check {
@@ -101,7 +126,6 @@
     color: #fff;
     line-height: 20px;
     font-size: 13px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 50%;
     border: 2px solid #fff;
     background: #00000015;
@@ -111,7 +135,7 @@
 
   .selected .check::before {
     border-width: 1px;
-    background-color: #256aff;
+    background-color: royalblue;
   }
 
   .box {

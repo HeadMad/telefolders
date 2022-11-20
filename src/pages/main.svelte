@@ -1,55 +1,53 @@
 <script>
-  import { outsideClick, headroom } from "../lib";
-  import { Gallery } from "../components";
-  const images = Array.from(Array(24), (_, i) => ({
-    thumb: `https://picsum.photos/id/${230 + i}/200/320`,
-    type: "photo",
-  }));
+  import { send } from "../lib";
+  import { Gallery, CheckboxMaster, Footer } from "../components";
+    import Folder from "./folder.svelte";
+
+const folder = send('folder_id');
+ 
+
   let gallery;
   let selectedCount;
   let allSelected;
 </script>
 
-<header use:headroom={{ duration: 200 }}>
-  {#if allSelected}
-    <span
-      class="selector material-symbols-rounded"
-      on:click={() => gallery.unselectAll()}
-    >
-      check_box
-    </span>
-  {:else}
-    <span class="selector material-symbols-rounded" on:click={() => gallery.selectAll()}>
-      {selectedCount === 0
-        ? "check_box_outline_blank"
-        : "indeterminate_check_box"}
-    </span>
-  {/if}
-
-  <button>Add Folder</button>
-  <button>Share Folder</button>
+<header>
+  <h1>{folder.name}</h1>
+  <CheckboxMaster
+  marked={allSelected}
+  half={selectedCount}
+  color={!selectedCount ? '#999' : 'royalblue'}
+  on:click={() => gallery[allSelected ? 'unselectAll' : 'selectAll']()}
+  />
+  
+  
+  
 </header>
 
-<Gallery {images} bind:this={gallery} bind:selectedCount bind:allSelected />
+
+  <Gallery
+  items={folder.items}
+  bind:this={gallery}
+  bind:selectedCount
+  bind:allSelected
+  />
+
+
+<Footer />
+
+
 
 <style>
-  :global(body) {
-    margin-top: 40px;
+
+header {
+  display: flex;
+  padding: 0 16px;
+  align-items: center;
+}
+  h1 {
+    font-size: 1.5em;
+    flex-grow: 1;
+    
   }
-  header {
-    padding: 0 16px;
-    box-sizing: border-box;
-    height: 40px;
-    line-height: 40px;
-    background-color: #fff;
-    box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.1);
-    text-align: right;
-    z-index: 1000;
-    width: 100%;
-  }
-  .selector {
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
-  }
+
 </style>
