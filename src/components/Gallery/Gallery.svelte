@@ -69,7 +69,7 @@
         </div>
       </div>
       <span
-        class="check"
+        class="check noselect"
         on:click={function () {
           if (image.isSelected) {
             selectionOrder.splice(selectionOrder.indexOf(index), 1);
@@ -134,8 +134,8 @@
   }
 
   .selected .check::before {
-    border-width: 1px;
-    background-color: royalblue;
+    border: 1px solid var(--tg-theme-bg-color, #fff);
+    background-color: dodgerblue;
   }
 
   .box {

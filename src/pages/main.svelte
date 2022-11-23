@@ -1,7 +1,9 @@
 <script>
   import { send } from "../lib";
   import { Gallery, CheckboxMaster, Footer } from "../components";
-    import Folder from "./folder.svelte";
+    import icon from 'svelte-mdi';
+
+    const AccountAlert = icon('account-alert');
 
 const folder = send('folder_id');
  
@@ -16,7 +18,7 @@ const folder = send('folder_id');
   <CheckboxMaster
   marked={allSelected}
   half={selectedCount}
-  color={!selectedCount ? '#999' : 'royalblue'}
+  color={!selectedCount ? 'var(--tg-theme-hint-color, gray)' : 'var(--tg-theme-button-color, dodgerblue)'}
   on:click={() => gallery[allSelected ? 'unselectAll' : 'selectAll']()}
   />
   

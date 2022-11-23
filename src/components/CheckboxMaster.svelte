@@ -12,7 +12,7 @@
 
 
 
-<span on:click>
+<span on:click class="noselect">
   <svelte:component
   {size}
   {color}
@@ -26,7 +26,6 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    
     vertical-align: middle;
     cursor: pointer;
   }

@@ -1,7 +1,38 @@
+/* 
+var(--tg-theme-bg-color)
+var(--tg-theme-text-color)
+var(--tg-theme-hint-color)
+var(--tg-theme-link-color)
+var(--tg-theme-button-color)
+var(--tg-theme-button-text-color)
+var(--tg-theme-secondary-bg-color) 
+*/
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: #fff;
+  background-color: var(--tg-theme-bg-color, #fff);
+  color: var(--tg-theme-text-color, #1f1f20);
   margin: 0;
   height: auto;
   min-height: 100%;
+}
+
+button {
+  border: 0;
+  background-color: var(--tg-theme-button-color, dodgerblue);
+  color: var(--tg-theme-button-text-color, #fff);
+}
+
+a {
+  color: var(--tg-theme-link-color, dodgerblue);
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }
