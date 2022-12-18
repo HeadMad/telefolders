@@ -32,16 +32,28 @@ class Router {
 
       const routeMatch = [];
 
-      const reString = route.replace(/\[([\w\.]+)\]/g, (match, inner) => {
-        if (/^\.{3}\w+$/.test(inner)) {
-          routeMatch.push(inner.substring(3))
-          return '(.+)?';
+      const reString = route.replace(/\[([\w\.\/\?]+)\]/g, (_, inner) => {
 
-        } else if (/^\w+$/.test(inner)) {
-          routeMatch.push(inner);
-          return '(\\w+)';
+        const match = inner.match(/^(\/)?(\.{3})?(\w+)(\?)?$/);
+        if (!match) 
+          return;
+
+        const [__, slash, spread, value, question] = match;
+        let char = spread ? '.+' : '\\w+';
+        let result = `(${char})`;
+
+        if (slash) {
+          routeMatch.push('_');
+          result = `(/${result})`
         }
-      });
+
+        if (question)
+          result += '?';
+
+        routeMatch.push(value);
+        return result;
+        });
+
       const re = new RegExp(`^${reString}$`);
       const pathMatch = path.match(re);
       if (pathMatch === null)
@@ -51,7 +63,8 @@ class Router {
 
 
       const params = routeMatch.reduce((res, key, i) => {
-        res[key] = values[i];
+        if (key !== '_')
+          res[key] = values[i];
         return res;
       }, {});
 

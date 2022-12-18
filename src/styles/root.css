@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+/* 
+var(--tg-color-scheme) [light|dark]
+var(--tg-viewport-height)
+var(--tg-viewport-stable-height)
+
+
+var(--tg-theme-bg-color)
+var(--tg-theme-text-color)
+var(--tg-theme-hint-color)
+var(--tg-theme-link-color)
+var(--tg-theme-button-color)
+var(--tg-theme-button-text-color)
+var(--tg-theme-secondary-bg-color) 
+*/
+
+/* Light-blue Light scheme (Default) */
+/* Can be forced with data-theme="light" */
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+  --primary: #039be5;
+  --primary-hover: #0288d1;
+  --primary-focus: rgba(3, 155, 229, 0.125);
+  --primary-inverse: #FFF;
+}
+
+/* Light-blue Dark scheme (Auto) */
+/* Automatically enabled if user has Dark mode enabled */
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary: #039be5;
+    --primary-hover: #03a9f4;
+    --primary-focus: rgba(3, 155, 229, 0.25);
+    --primary-inverse: #FFF;
+  }
+}
+
+/* Light-blue Dark scheme (Forced) */
+/* Enabled if forced with data-theme="dark" */
+[data-theme="dark"] {
+  --primary: #039be5;
+  --primary-hover: #03a9f4;
+  --primary-focus: rgba(3, 155, 229, 0.25);
+  --primary-inverse: #FFF;
+}
+
+/* Light-blue (Common styles) */
+:root {
+  --form-element-active-border-color: var(--primary);
+  --form-element-focus-color: var(--primary-focus);
+  --switch-color: var(--primary-inverse);
+  --switch-checked-background-color: var(--primary);
+}
+
+:root {
+
+  --viewport-height: var(--tg-viewport-height, 100vh);
+
+  --bg-color: var(--tg-theme-bg-color, #fff);
+  --secondary-bg-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+  --text-color: var(--tg-theme-text-color, #333);
+  --hint-color: var(--tg-theme-hint-color, #a8a8a8);
+  --link-color: var(--tg-theme-link-color, #328ae5);
+  --button-color: var(--tg-theme-button-color, #50a8eb);
+  --button-text-color: var(--tg-theme-button-text-color, #fff);
+}
+
+[data-theme=dark] {
+  --bg-color: var(--tg-theme-bg-color, #1d2733);
+  --secondary-bg-color: var(--tg-theme-secondary-bg-color, #151e27);
+  --text-color: var(--tg-theme-text-color, #fff);
+  --hint-color: var(--tg-theme-hint-color, #7d8b99);
+  --link-color: var(--tg-theme-link-color, #5eabe1);
+  --button-color: var(--tg-theme-button-color, #50a8eb);
+  --button-text-color: var(--tg-theme-button-text-color, #fff);
+}
+
+body {
+  font-family: system-ui, -apple-system, Roboto, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  height: auto;
+  min-height: 100%;
+  font-size: 1em;
+}

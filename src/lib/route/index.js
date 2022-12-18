@@ -6,6 +6,6 @@ router.add('/', 'main');
 router.add('/about', 'about');
 router.add('/contacts', 'contacts');
 router.add('/faq', 'faq');
-router.add('/folder/[...path]', 'folder');
+router.add('/folder[/...path?]/[id]', 'folder');
 
 export default (path) => router.run(path);

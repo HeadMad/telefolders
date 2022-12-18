@@ -1,0 +1,55 @@
+<script>
+    import { initWebApp, sendWebAppQuery } from "../../lib/TelegramWebApp.js";
+    import error from "../../lib/store/error";
+    import { Modal  } from "../";
+    const WebApp = initWebApp();
+    let modalVisible = false;
+    let botAnswer;
+    function sendInBot() {
+    send('sendInBot', [rawData, {
+      method: 'sendMessage',
+      text: 'Hello from web app'
+    }])
+    .then(resp => {
+      console.log(resp)
+      botAnswer = resp
+    })
+    .catch(({message}) => console.warn(message));
+    botAnswer = 'Загружаю...';
+  }
+
+  error.subscribe(value => console.log('VALUE: ', value))
+</script>
+
+
+
+  <div class="tmp">
+    <button on:click={() => {WebApp.showPopup({title: "popup title", message: 'This is popup message\nSecond row', buttons: [{type: 'destructive', text: 'Remove'}, {type: 'ok'}, {type: 'close'}]}, () => {})}}>Popup</button>
+    <button on:click={() => { WebApp.showConfirm('Please confirm \n this message', () => {}) }}>Confirm</button>
+    <button on:click={() => modalVisible = true}>Sending to bot</button>
+    <button on:click={() => sendWebAppQuery('Hello', {hi: 'there'})}>Send WA Query</button>
+    <button on:click={() => error.set('Hello WTF')}>No method</button>
+    <br>
+    <input type="checkbox" role="switch" aria-invalid=true/>
+    <input type="checkbox" aria-invalid=true/>
+    <br>
+    <input type="text" aria-invalid=true />
+  </div>
+
+<Modal bind:visible={modalVisible} title="Theme colors">
+  <button on:click={sendInBot}>Send</button>
+  <br>
+<pre>{JSON.stringify(botAnswer, null, ' ')}</pre>
+</Modal>
+
+
+<style>
+  .tmp {
+    padding: 1em;
+    background-color: var(--secondary-bg-color);
+    white-space: nowrap;
+    overflow: auto;
+    /* scrollbar-width: none; */
+
+  }
+</style>

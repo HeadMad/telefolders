@@ -1,4 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 /* 
+var(--tg-color-scheme) [light|dark]
+var(--tg-viewport-height)
+var(--tg-viewport-stable-height)
+
+
 var(--tg-theme-bg-color)
 var(--tg-theme-text-color)
 var(--tg-theme-hint-color)
@@ -8,31 +14,155 @@ var(--tg-theme-button-text-color)
 var(--tg-theme-secondary-bg-color) 
 */
 
+:root {
+  --viewport-height: var(--tg-viewport-height, 100vh);
+
+  --bg-color: var(--tg-theme-bg-color, #fff);
+  --secondary-bg-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+  --text-color: var(--tg-theme-text-color, #333);
+  --hint-color: var(--tg-theme-hint-color, #a8a8a8);
+  --link-color: var(--tg-theme-link-color, #328ae5);
+  --button-color: var(--tg-theme-button-color, #50a8eb);
+  --button-text-color: var(--tg-theme-button-text-color, #fff);
+}
+
+[data-theme=dark] {
+  --bg-color: var(--tg-theme-bg-color, #1d2733);
+  --secondary-bg-color: var(--tg-theme-secondary-bg-color, #151e27);
+  --text-color: var(--tg-theme-text-color, #fff);
+  --hint-color: var(--tg-theme-hint-color, #7d8b99);
+  --link-color: var(--tg-theme-link-color, #5eabe1);
+  --button-color: var(--tg-theme-button-color, #50a8eb);
+  --button-text-color: var(--tg-theme-button-text-color, #fff);
+}
+
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--tg-theme-bg-color, #fff);
-  color: var(--tg-theme-text-color, #1f1f20);
+  /* font-family: "Lucida Grande", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; */
+  font-family: system-ui, -apple-system, Roboto, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   margin: 0;
   height: auto;
   min-height: 100%;
+  font-size: 1em;
 }
 
 button {
   border: 0;
-  background-color: var(--tg-theme-button-color, dodgerblue);
-  color: var(--tg-theme-button-text-color, #fff);
+  background-color: var(--button-color);
+  color: var(--button-text-color);
+  padding: 0 1rem;
+  height: 2.2rem;
+  border-radius: .25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button+button {
+  margin-left: .5rem;
+}
+
+button.disabled {
+  background-color: var(--hint-color);
+}
+
+button.ghost {
+  background: none;
+  color: var(--button-color);
+  padding: 0 .5rem;
+}
+
+button.disabled.ghost {
+  color: var(--hint-color);
 }
 
 a {
-  color: var(--tg-theme-link-color, dodgerblue);
+  color: var(--link-color);
 }
 
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+
+.nohighlight {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.form-row {
+  display: block;
+}
+
+.form-row.right {
+  text-align: right;
+}
+
+.form-row + .form-row {
+  margin-top: 1rem;
+}
+
+.form-label+.form-input {
+  margin-top: .25rem;
+}
+
+
+
+.form-input {
+  height: 2rem;
+  padding: 0 .5rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid var(--hint-color);
+  color: var(--text-color);
+  background: none;
+  outline: none;
+  border-radius: 0;
+}
+
+.form-input.block {
+  display: block;
+  width: 100%;
+}
+
+.form-input:focus {
+  border-bottom-color: var(--link-color);
+}
+
+@supports(-webkit-appearance: none) or (-moz-appearance: none) {
+  input[type=checkbox] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    vertical-align: middle;
+    background: var(--secondary-bg-color);
+    border: 1px solid var(--hint-color);
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: .3rem;
+    cursor: pointer;
+    position: relative;
+  }
+
+  input[type=checkbox]:checked {
+    background: var(--button-color);
+    border: 0;
+  }
+
+  input[type=checkbox]:checked::after {
+    content: '';
+    position: absolute;
+    width: 25%;
+    height: 35%;
+    border: .2rem solid var(--button-text-color);
+    border-top: 0;
+    border-left: 0;
+    left: 27%;
+    top: 15%;
+    transform: rotate(45deg);
+  }
 }

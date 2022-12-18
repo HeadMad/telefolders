@@ -1,0 +1,127 @@
+/**
+ * Modal (<dialog>)
+ */
+ :root {
+  --scrollbar-width: 0px;
+}
+
+dialog {
+  display: flex;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  width: inherit;
+  min-width: 100%;
+  height: inherit;
+  min-height: 100%;
+  padding: var(--spacing);
+  border: 0;
+  -webkit-backdrop-filter: var(--modal-overlay-backdrop-filter);
+  backdrop-filter: var(--modal-overlay-backdrop-filter);
+  background-color: var(--modal-overlay-background-color);
+  color: var(--color);
+}
+dialog article {
+  max-height: calc(100vh - var(--spacing) * 2);
+  overflow: auto;
+}
+@media (min-width: 576px) {
+  dialog article {
+    max-width: 510px;
+  }
+}
+@media (min-width: 768px) {
+  dialog article {
+    max-width: 700px;
+  }
+}
+dialog article > header,
+dialog article > footer {
+  padding: calc(var(--block-spacing-vertical) * 0.5) var(--block-spacing-horizontal);
+}
+dialog article > header .close {
+  margin: 0;
+  margin-left: var(--spacing);
+  float: right;
+}
+dialog article > footer {
+  text-align: right;
+}
+dialog article > footer [role=button] {
+  margin-bottom: 0;
+}
+dialog article > footer [role=button]:not(:first-of-type) {
+  margin-left: calc(var(--spacing) * 0.5);
+}
+dialog article p:last-of-type {
+  margin: 0;
+}
+dialog article .close {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin-top: calc(var(--block-spacing-vertical) * -0.5);
+  margin-bottom: var(--typography-spacing-vertical);
+  margin-left: auto;
+  background-image: var(--icon-close);
+  background-position: center;
+  background-size: auto 1rem;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  transition: opacity var(--transition);
+}
+dialog article .close:is([aria-current], :hover, :active, :focus) {
+  opacity: 1;
+}
+dialog:not([open]), dialog[open=false] {
+  display: none;
+}
+
+.modal-is-open {
+  padding-right: var(--scrollbar-width, 0px);
+  overflow: hidden;
+  pointer-events: none;
+}
+.modal-is-open dialog {
+  pointer-events: auto;
+}
+
+:where(.modal-is-opening, .modal-is-closing) dialog,
+:where(.modal-is-opening, .modal-is-closing) dialog > article {
+  animation-duration: 0.2s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+:where(.modal-is-opening, .modal-is-closing) dialog {
+  animation-duration: 0.8s;
+  animation-name: modal-overlay;
+}
+:where(.modal-is-opening, .modal-is-closing) dialog > article {
+  animation-delay: 0.2s;
+  animation-name: modal;
+}
+
+.modal-is-closing dialog,
+.modal-is-closing dialog > article {
+  animation-delay: 0s;
+  animation-direction: reverse;
+}
+
+@keyframes modal-overlay {
+  from {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: transparent;
+  }
+}
+@keyframes modal {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}

@@ -1,55 +1,55 @@
 <script>
+  import { onMount } from "svelte";
   import { send } from "../lib";
-  import { Gallery, CheckboxMaster, Footer } from "../components";
-    import icon from 'svelte-mdi';
+  import { GalleryBody, GalleryHeader} from "../components";
+  import { initWebApp } from "../lib/TelegramWebApp.js";
 
-    const AccountAlert = icon('account-alert');
 
-const folder = send('folder_id');
- 
 
+  const WebApp = initWebApp();
+  const { BackButton, MainButton } = WebApp;
+
+  MainButton.setParams({
+    text: "Главная кнопка",
+    is_visible: false,
+    is_active: true,
+  });
+
+  MainButton.onClick(() => {
+    MainButton.showProgress();
+    MainButton.setText("Загружаю");
+    setTimeout(() => {
+      MainButton.hideProgress();
+      MainButton.setText("Главная кнопка");
+    }, 2000);
+  });
+  
+  const foldersList = send("foldersList");
+  const folderItems = send("gallery");
   let gallery;
   let selectedCount;
   let allSelected;
+
+
+  function clickFolder({ detail: folder }) {
+    WebApp.expand();
+    if (BackButton.isVisible) BackButton.hide();
+    else BackButton.show();
+  }
+
+  onMount(() => {
+    WebApp.ready();
+  });
 </script>
 
-<header>
-  <h1>{folder.name}</h1>
-  <CheckboxMaster
-  marked={allSelected}
-  half={selectedCount}
-  color={!selectedCount ? 'var(--tg-theme-hint-color, gray)' : 'var(--tg-theme-button-color, dodgerblue)'}
-  on:click={() => gallery[allSelected ? 'unselectAll' : 'selectAll']()}
-  />
-  
-  
-  
-</header>
 
-
-  <Gallery
-  items={folder.items}
+<GalleryHeader  folders={foldersList}/>
+<GalleryBody
+  items={folderItems}
   bind:this={gallery}
   bind:selectedCount
   bind:allSelected
-  />
+  on:clickFolder={clickFolder}
+/>
 
 
-<Footer />
-
-
-
-<style>
-
-header {
-  display: flex;
-  padding: 0 16px;
-  align-items: center;
-}
-  h1 {
-    font-size: 1.5em;
-    flex-grow: 1;
-    
-  }
-
-</style>

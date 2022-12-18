@@ -7,9 +7,21 @@ let WebApp;
  * 
  * @param {Object} Telegram Instance of Telegram web app script
  */
-export function initWebApp (Telegram) {
-  WebApp = Telegram.WebApp;
+export function initWebApp () {
+  WebApp = window.Telegram.WebApp;
   return WebApp;
+}
+
+export function dataCheckString() {
+  const data = window.Telegram.WebApp.InitData;
+  const initData = new URLSearchParams(data);
+  initData.sort();
+  let result = [];
+  initData.forEach((val, key) => {
+    if (key !== 'hash')
+      result.push(key + '=' + val);
+  });
+  return result.join('\n');
 }
 
 /**
@@ -17,23 +29,6 @@ export function initWebApp (Telegram) {
  * @param {any} data 
  * @returns 
  */
-export async function sendWebAppQuery (data) {
-  const initData = WebApp.initDataUnsafe;
-  const user = initData?.user ?? null;
-  const chat =  initData?.chat ??  user;
-  const query_id = initData?.query_id ?? null;
-
-  const request = {
-    method: 'getUser',
-    params: [{
-      id: user.id
-    }]
-  };
-
-  const requestJson = JSON.stringify(request);
-
-  const response = await fetch(backendWebUrl + `?${encodeURI(requestJson)}`);
-  const result = await response.json();
-
-  return result;
+export async function sendWebAppQuery (method, payload) {
+  return WebApp.sendData(JSON.stringify([method, payload]));
 }
