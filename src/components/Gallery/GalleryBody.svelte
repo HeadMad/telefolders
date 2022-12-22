@@ -66,7 +66,7 @@
       <div class="box">
         <div class="folder nohighlight" on:click={() => dispatch("clickFolder", folder)}>
           <div class="folder-name">
-            <IconFolder size="64" /><br />
+            <IconFolder color="var(--hint-color)" size="64" /><br />
             {folder.name}
           </div>
         </div>
@@ -111,14 +111,12 @@
 </div>
 
 <style lang="postcss">
+  @import '../../styles/.nohighlight.css';
+
   .gallery {
     margin: 4px;
   }
-  /* .gallery::after {
-    content: "";
-    display: block;
-    clear: both;
-  } */
+
 
   .folders,
   .thumbs {
@@ -135,8 +133,7 @@
   .folder-name {
     text-align: center;
     margin: auto;
-    font-size: 0.8em;
-    color: slategrey;
+    font-size: .8rem;
   }
 
   .check {
@@ -159,11 +156,11 @@
     min-width: 1.5rem;
     height: 1.5rem;
     line-height: 1.5rem;
-    color: var(--button-text-color);
+    color: var(--primary-inverse-color);
     font-size: .8rem;
     font-weight: 500;
-    border-radius: .75rem;
-    background: #00000020;
+    border-radius: 50%;
+    background: #00000033;
     box-shadow: inset 0 0 0 2px #fff;
     text-align: center;
     padding: 0 .3rem;
@@ -171,7 +168,7 @@
   }
   
   .selected .check::before {
-    background-color: var(--link-color);
+    background-color: var(--primary-color);
     box-shadow: 0 0 0 1px var(--bg-color);
   }
   
@@ -201,7 +198,7 @@
   }
 
   img {
-    /* cursor: pointer; */
+    cursor: pointer;
     width: 100%;
     height: 100%;
     object-fit: cover;

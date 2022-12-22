@@ -3,20 +3,12 @@
   export let visible = false;
   export const show = () => visible = true;
   export const hide = () => visible = false;
-  export let title = '';
-
-
 </script>
 
 {#if visible}
   <div class="modal">
-    <div class="overlay" on:click={hide}></div>
-    <div class="window">
-      <header class="header">{title}</header>
-      <div class="body">
-        <slot/>
-      </div>
-    </div>
+    <div class="overlay" on:click={hide} />
+    <div class="window"><slot/></div>
   </div>
 {/if}
 
@@ -42,25 +34,6 @@
     min-width: 50%;
     max-width: 80%;
     background-color: var(--bg-color);
-    border-radius: .9rem;
+    border-radius: 0.9rem;
   }
-  .header {
-    padding: 1.5rem 1.5rem 0;
-    font-weight: 500;
-    font-size: 1.2em;
-  }
-  /* .header-text {
-    flex-grow: 1;
-  }
-  .header-icon {
-    size: 18px;
-    background-color: #eee;
-    color: gray;
-    cursor: pointer;
-  } */
-  .body {
-    padding: .75rem 1.5rem 1.5rem;
-
-  }
-  
 </style>

@@ -16,71 +16,68 @@ var(--tg-theme-secondary-bg-color)
 
 /* Light-blue Light scheme (Default) */
 /* Can be forced with data-theme="light" */
-[data-theme="light"],
-:root:not([data-theme="dark"]) {
-  --primary: #039be5;
-  --primary-hover: #0288d1;
-  --primary-focus: rgba(3, 155, 229, 0.125);
-  --primary-inverse: #FFF;
-}
 
-/* Light-blue Dark scheme (Auto) */
-/* Automatically enabled if user has Dark mode enabled */
-@media only screen and (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --primary: #039be5;
-    --primary-hover: #03a9f4;
-    --primary-focus: rgba(3, 155, 229, 0.25);
-    --primary-inverse: #FFF;
-  }
-}
+/* Theming */
+/*
+--theme-primary-color
+--theme-primary-hover-color
+--theme-primary-focus-color
+--theme-primary-inverse-color
+*/
 
-/* Light-blue Dark scheme (Forced) */
-/* Enabled if forced with data-theme="dark" */
-[data-theme="dark"] {
-  --primary: #039be5;
-  --primary-hover: #03a9f4;
-  --primary-focus: rgba(3, 155, 229, 0.25);
-  --primary-inverse: #FFF;
-}
 
-/* Light-blue (Common styles) */
-:root {
-  --form-element-active-border-color: var(--primary);
-  --form-element-focus-color: var(--primary-focus);
-  --switch-color: var(--primary-inverse);
-  --switch-checked-background-color: var(--primary);
-}
 
-:root {
+:root,
+[data-theme=light] {
+  --primary-color: var(--theme-primary-color, #52a8eb);
+  --primary-focus-color: var(--theme-primary-focus-color, #52a8eb33);
+  --primary-hover-color: var(--theme-primary-hover-color, #3b9de8);
+  --primary-inverse-color: var(--theme-primary-inverse-color, #fff);
+  --secondary-color: var(--theme-secondary-color, #3489e5);
 
-  --viewport-height: var(--tg-viewport-height, 100vh);
+  --bg-color: var(--theme-bg-color, #ffffff);
+  --bg-secondary-color: var(--theme-bg-secondary-color, #f0f0f0);
+  --text-color: var(--theme-text-color, #333333);
+  --hint-color: var(--theme-hint-color, #a8a8a8);
 
-  --bg-color: var(--tg-theme-bg-color, #fff);
-  --secondary-bg-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
-  --text-color: var(--tg-theme-text-color, #333);
-  --hint-color: var(--tg-theme-hint-color, #a8a8a8);
-  --link-color: var(--tg-theme-link-color, #328ae5);
-  --button-color: var(--tg-theme-button-color, #50a8eb);
-  --button-text-color: var(--tg-theme-button-text-color, #fff);
+  --viewport-height: var(--theme-viewport-height, 100vh);
 }
 
 [data-theme=dark] {
-  --bg-color: var(--tg-theme-bg-color, #1d2733);
-  --secondary-bg-color: var(--tg-theme-secondary-bg-color, #151e27);
-  --text-color: var(--tg-theme-text-color, #fff);
-  --hint-color: var(--tg-theme-hint-color, #7d8b99);
-  --link-color: var(--tg-theme-link-color, #5eabe1);
-  --button-color: var(--tg-theme-button-color, #50a8eb);
-  --button-text-color: var(--tg-theme-button-text-color, #fff);
+  --primary-color: var(--theme-primary-color, #52a8eb);
+  --primary-focus-color: var(--theme-primary-focus-color, #52a8eb33);
+  --primary-hover-color: var(--theme-primary-hover-color, #3b9de8);
+  --primary-inverse-color: var(--theme-primary-inverse-color, #fff);
+  --secondary-color: var(--theme-secondary-color, #60ace2);
+  
+  --bg-color: var(--theme-bg-color, #1d2834);
+  --bg-secondary-color: var(--theme-bg-secondary-color, #151f28);
+  --text-color: var(--theme-text-color, #ffffff);
+  --hint-color: var(--theme-hint-color, #636e7a);
 }
 
-body {
-  font-family: system-ui, -apple-system, Roboto, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: var(--bg-color);
+:root,
+[data-theme] {
+  --viewport-height: var(--theme-viewport-height, 100vh);
+  
+  --link-color: var(--secondary-color);
+  --form-element-focus-outline-boxshadow: 0 0 0 3px var(--primary-focus-color);
+  --form-element-border: 1px solid var(--hint-color);
+  --form-element-focus-border: 1px solid var(--primary-color);
+  --form-element-border-radius: .4rem;
+  --form-element-bg-color: var(--bg-secondary-color);
+  
+  --form-element-invalid-border-color: #b71c1c;
+  --form-element-invalid-active-border-color: #c62828;
+  --form-element-invalid-focus-color: rgba(198, 40, 40, 0.25);
+  --form-element-valid-border-color: #2e7d32;
+  --form-element-valid-active-border-color: #388e3c;
+  --form-element-valid-focus-color: rgba(56, 142, 60, 0.25);
+  
+  --transition: .2s ease-in-out;
+  --font-family: system-ui, -apple-system, Roboto, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  font-family: var(--font-family);
   color: var(--text-color);
-  margin: 0;
-  height: auto;
-  min-height: 100%;
   font-size: 1em;
 }

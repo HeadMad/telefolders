@@ -1,7 +1,7 @@
 <script>
     import { initWebApp, sendWebAppQuery } from "../../lib/TelegramWebApp.js";
-    import error from "../../lib/store/error";
-    import { Modal  } from "../";
+    import {error, modal} from "../../lib/store";
+  
     const WebApp = initWebApp();
     let modalVisible = false;
     let botAnswer;
@@ -29,24 +29,28 @@
     <button on:click={() => modalVisible = true}>Sending to bot</button>
     <button on:click={() => sendWebAppQuery('Hello', {hi: 'there'})}>Send WA Query</button>
     <button on:click={() => error.set('Hello WTF')}>No method</button>
+    <button on:click={() => modal.set({title: 'Theme Params', footer: `<pre>${JSON.stringify(globalThis.Telegram.WebApp.themeParams, null, ' ')}</pre>`})}>Theme Params</button>
+    <hr>
     <br>
     <input type="checkbox" role="switch" aria-invalid=true/>
     <input type="checkbox" aria-invalid=true/>
+    <input type="checkbox" indeterminate="true" />
+    <input type="radio" name="" id="">
     <br>
-    <input type="text" aria-invalid=true />
+    <a href="https://allacakes.ru">Cakes from alla</a>
   </div>
 
-<Modal bind:visible={modalVisible} title="Theme colors">
+<!-- <Modal bind:visible={modalVisible} title="Theme colors">
   <button on:click={sendInBot}>Send</button>
   <br>
 <pre>{JSON.stringify(botAnswer, null, ' ')}</pre>
-</Modal>
+</Modal> -->
 
 
 <style>
   .tmp {
     padding: 1em;
-    background-color: var(--secondary-bg-color);
+    /* background-color: var(--bg-secondary-color); */
     white-space: nowrap;
     overflow: auto;
     /* scrollbar-width: none; */

@@ -1,0 +1,6 @@
+body {
+  margin: 0;
+  height: auto;
+  background-color: var(--bg-color);
+  min-height: var(--viewport-height);
+}

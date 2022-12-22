@@ -2,8 +2,9 @@
   import { onMount } from "svelte";
 
   import {  getFolder, createNewFolder, emitSend, send } from "../lib";
-  import { GalleryBody, GalleryHeader, Modal, TestButtons } from "../components";
+  import { GalleryBody, GalleryHeader } from "../components";
   import { initWebApp, sendWebAppQuery } from "../lib/TelegramWebApp.js";
+  import {modal} from '../lib/store'
 
   export let path = "";
   export let id;
@@ -34,10 +35,10 @@
   emitSend(rawData, path, id).then((response) => (folderData = response));
   
   
-  let modal;
   let gallery;
   let selectedCount;
   let allSelected;
+  let modalContentNewFolder;
 
   function clickFolder({ detail: folder }) {
     WebApp.expand();
@@ -45,8 +46,10 @@
     else BackButton.show();
   }
 
-  function onPlusClick() {
-    modal.show();
+  async function onPlusClick() {
+    if (!modalContentNewFolder)
+      modalContentNewFolder = await (await import('../components/Modal/ModalContentNewFolder.svelte')).default;
+    modal.set(modalContentNewFolder);
   }
 
   WebApp.ready();
@@ -64,7 +67,7 @@
   name={folderData.folder.name}
   on:plusClick={onPlusClick}
   />
-<TestButtons/>
+
   <GalleryBody
     items={folderData.childs}
     bind:this={gallery}
@@ -73,26 +76,4 @@
     on:clickFolder={clickFolder}
   />
 {/if}
-
-
-
-  <div data-theme="">
-    <Modal bind:this={modal} title="Новая папка">
-      <label class="form-row">
-        <span class="form-label">Имя папки</span>
-        <input class="form-input block" type="text">
-      </label>
-      <div class="form-row">
-        <label>
-          <input type="checkbox">
-          <span>Открыть папку</span>
-        </label>
-      </div>
-      <div class="form-row right">
-    
-        <button class="ghost" on:click={modal.hide}>Закрыть</button>
-        <button class="ghost" on:click={modal.hide}>OK</button>
-      </div>
-    </Modal>
-  </div>
   

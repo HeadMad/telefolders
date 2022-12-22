@@ -6,7 +6,8 @@ export {default as Footer} from './Footer.svelte';
 export {default as FilterMenu} from './FilterMenu.svelte';
 export {default as FoldersMenu} from './Gallery/FoldersMenu.svelte';
 
-export {default as Modal} from './Modal.svelte';
+export {default as Modal} from './Modal/ModalWindow.svelte';
+export {default as ModalContentNewFolder} from './Modal/ModalContentNewFolder.svelte';
 export {default as Alert} from './Alert.svelte';
 
 export {default as TestButtons} from './Test/TestButtons.svelte';

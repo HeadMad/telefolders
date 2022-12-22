@@ -12,6 +12,8 @@ function simpleStore(value, start) {
     if (typeof subscriber === 'function')
       subscribers.add(subscriber);
 
+    subscriber(value);
+
     if (!first)
       return;
 

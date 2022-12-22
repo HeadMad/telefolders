@@ -1,0 +1,19 @@
+.form-row {
+  display: block;
+}
+
+.form-row.right {
+  text-align: right;
+}
+
+.form-row + .form-row {
+  margin-top: .8rem;
+}
+
+.form-label+.form-input {
+  margin-top: .7rem;
+}
+
+.form-input.block {
+  width: 100%;
+}
