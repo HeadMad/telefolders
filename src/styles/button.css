@@ -46,30 +46,6 @@ input[type=reset],
 
 :is(
   button,
-  input[type=submit],
-  input[type=button],
-  input[type=reset],
-  [role=button]
-).ghost {
-  font-size: 1.15em;
-  background-color: transparent;
-  color: var(--primary-color);
-}
-
-:is(
-  button,
-  input[type=submit],
-  input[type=button],
-  input[type=reset],
-  [role=button]
-).ghost:is([aria-current], :hover, :active, :focus) {
-  background-color: transparent;
-  color: var(--primary-hover-color);
-}
-
-
-:is(
-  button,
   [type=submit],
   [type=button],
   [type=reset],
@@ -85,4 +61,26 @@ fieldset[disabled] :is(
 a[role=button]:not([href]) {
   opacity: 0.5;
   pointer-events: none;
+}
+
+:is(
+  button,
+  input[type=submit],
+  input[type=button],
+  input[type=reset],
+  [role=button]
+).ghost {
+  background-color: transparent;
+  color: var(--primary-color);
+}
+
+:is(
+  button,
+  input[type=submit],
+  input[type=button],
+  input[type=reset],
+  [role=button]
+).ghost:is([aria-current], :hover, :active, :focus) {
+  background-color: transparent;
+  color: var(--primary-hover-color);
 }

@@ -1,6 +1,6 @@
 <script>
     import { initWebApp } from "./lib/TelegramWebApp.js";
-    import { Alert, Modal } from "./components";
+    import { Alert, Modal, TestButtons } from "./components";
     import { error, modal } from "./lib/store";
     import { onMount } from "svelte";
     import route from "./lib/route";
@@ -43,13 +43,14 @@
     }
 
 </script>
+<TestButtons/>
 <svelte:component this={dynamicPage} {...params} />
 
 <Modal bind:this={modalWin}>
-        <svelte:component this={$modal} {modalWin} />
+    <svelte:component this={$modal} {modalWin} />
 </Modal> 
 <Alert bind:this={alert} />
 
 <style>
-    @import './styles/styles.css';
+    @import '../../styles/styles.css';
 </style>

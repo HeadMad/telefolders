@@ -20,10 +20,8 @@
     thumbs = [];
 
     items.forEach((item) => {
-      if (item.type === "folder") {
-        console.log(item)
+      if (item.type === "folder") 
         return folders.push({ ...item });
-      }
       selectedCount++;
       thumbs.push({
         ...item,

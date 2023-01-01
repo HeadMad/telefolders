@@ -32,8 +32,8 @@
     <button on:click={() => modal.set({title: 'Theme Params', footer: `<pre>${JSON.stringify(globalThis.Telegram.WebApp.themeParams, null, ' ')}</pre>`})}>Theme Params</button>
     <hr>
     <br>
-    <input type="checkbox" role="switch" aria-invalid=true/>
-    <input type="checkbox" aria-invalid=true/>
+    <input type="checkbox" role="switch"/>
+    <input type="checkbox" />
     <input type="checkbox" indeterminate="true" />
     <input type="radio" name="" id="">
     <br>

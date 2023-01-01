@@ -29,7 +29,7 @@
     padding: 1.5rem 1.5rem 0;
     margin: 0;
     font-weight: 500;
-    font-size: 1.4em;
+    font-size: 1.3rem;
   }
 
   .form {

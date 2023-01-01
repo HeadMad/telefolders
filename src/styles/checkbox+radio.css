@@ -83,12 +83,12 @@
   [aria-invalid=false],
   :checked[aria-invalid=false]
 ) {
-  --border-color: var(--form-element-valid-border-color);
+  border-color: var(--form-element-valid-border-color);
 }
 
 :is([type=checkbox], [type=radio]):is(
   [aria-invalid=true],
   :checked[aria-invalid=true]
 ) {
-  --border-color: var(--form-element-invalid-border-color);
+  border-color: var(--form-element-invalid-border-color);
 }
