@@ -10,12 +10,12 @@
     <span class="form-label">Имя папки</span>
     <input class="form-input" style:width="100%" type="text" />
   </label>
-  <!-- <div class="form-row">
-    <label>
+  <div class="form-row">
+    <!-- <label>
       <input type="checkbox" />
       <span>Открыть папку</span>
-    </label>
-  </div> -->
+    </label> -->
+  </div>
   <div class="form-row right">
     <button class="ghost" style:color="tomato" on:click={modalWin.hide}>Закрыть</button>
     <button class="ghost" on:click={modalWin.hide}>OK</button>
@@ -23,7 +23,7 @@
 </div>
 
 <style>
-  @import "../../styles/.form.css";
+  @import "../../../../../styles/css/.form.css";
 
   h3 {
     padding: 1.5rem 1.5rem 0;

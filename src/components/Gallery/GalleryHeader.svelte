@@ -19,10 +19,10 @@
 
   <h1>{name}</h1>
   <span class="icon nohighlight" on:click={onPlusClick}>
-    <IconPlus size="24" color="var(--hint-color)" />
+    <IconPlus size="24" color="var(--text-hint-color)" />
   </span>
   <span class="icon nohighlight">
-    <IconShare size="24" color="var(--hint-color)" />
+    <IconShare size="24" color="var(--text-hint-color)" />
   </span>
 </header>
 

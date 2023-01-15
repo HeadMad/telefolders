@@ -1,3 +1,0 @@
-div :is(button, input):is(:hover, :focus, :active, :empty):is(::before, ::after) {
-  background-color: #fff;
-}

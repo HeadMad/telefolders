@@ -38,7 +38,6 @@
   let gallery;
   let selectedCount;
   let allSelected;
-  let modalContentNewFolder;
 
   function clickFolder({ detail: folder }) {
     WebApp.expand();
@@ -46,10 +45,8 @@
     else BackButton.show();
   }
 
-  async function onPlusClick() {
-    if (!modalContentNewFolder)
-      modalContentNewFolder = await (await import('../components/Modal/ModalContentNewFolder.svelte')).default;
-    modal.set(modalContentNewFolder);
+  function onPlusClick() {
+    modal.set(import('../components/Modal/content/NewFolder.svelte'));
   }
 
   WebApp.ready();

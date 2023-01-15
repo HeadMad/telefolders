@@ -64,7 +64,7 @@
       <div class="box">
         <div class="folder nohighlight" on:click={() => dispatch("clickFolder", folder)}>
           <div class="folder-name">
-            <IconFolder color="var(--hint-color)" size="64" /><br />
+            <IconFolder color="var(--text-hint-color)" size="64" /><br />
             {folder.name}
           </div>
         </div>
@@ -109,7 +109,7 @@
 </div>
 
 <style lang="postcss">
-  @import '../../styles/.nohighlight.css';
+  @import '../../../../styles/css/.nohighlight.css';
 
   .gallery {
     margin: 4px;

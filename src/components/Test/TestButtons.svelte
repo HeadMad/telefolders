@@ -1,6 +1,8 @@
 <script>
     import { initWebApp, sendWebAppQuery } from "../../lib/TelegramWebApp.js";
     import {error, modal} from "../../lib/store";
+
+    let modalContentThemeParams;
   
     const WebApp = initWebApp();
     let modalVisible = false;
@@ -18,6 +20,10 @@
     botAnswer = 'Загружаю...';
   }
 
+  function modalThemeParams() {
+    modal.set(import('./modal/ThemeParams.svelte'));
+  }
+
   error.subscribe(value => console.log('VALUE: ', value))
 </script>
 
@@ -29,7 +35,7 @@
     <button on:click={() => modalVisible = true}>Sending to bot</button>
     <button on:click={() => sendWebAppQuery('Hello', {hi: 'there'})}>Send WA Query</button>
     <button on:click={() => error.set('Hello WTF')}>No method</button>
-    <button on:click={() => modal.set({title: 'Theme Params', footer: `<pre>${JSON.stringify(globalThis.Telegram.WebApp.themeParams, null, ' ')}</pre>`})}>Theme Params</button>
+    <button on:click={modalThemeParams}>Theme Params</button>
     <hr>
     <br>
     <input type="checkbox" role="switch"/>

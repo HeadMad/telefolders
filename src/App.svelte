@@ -4,7 +4,6 @@
     import { error, modal } from "./lib/store";
     import { onMount } from "svelte";
     import route from "./lib/route";
-    // import "./styles/test.css";
 
     let alert;
     let modalWin;
@@ -27,18 +26,29 @@
         globalThis?.Telegram?.WebApp?.themeParams &&
         Object.keys(globalThis?.Telegram?.WebApp?.themeParams).length
     ) {
+
+        // --primary-color: #52a8eb;
+        // --primary-transparent-color: #52a8eb33;
+        // --primary-dark-color: #3b9de8;
+        // --primary-inverse-color: #fff;
+        // --secondary-color: #60ace2;
+        
+        // --bg-color: #1d2834;
+        // --bg-secondary-color: #151f28;
+        // --text-color: #ffffff;
+        // --hint-text-color: #636e7a;
         const params = globalThis.Telegram.WebApp.themeParams;
         document.documentElement.style.cssText = document.documentElement.style.cssText + `
-        --theme-primary-color: ${params.button_color};
-        --theme-primary-focus-color: ${params.button_color}33;
-        --theme-primary-hover-color: ${params.link_color};
-        --theme-primary-inverse-color: ${params.button_text_color};
-        --theme-secondary-color: ${params.link_color};
-        --theme-text-color: ${params.text_color};
-        --theme-bg-color: ${params.bg_color};
-        --theme-bg-secondary-color: ${params.secondary_bg_color};
-        --theme-hint-color: ${params.hint_color};
-        --theme-viewport-height: var(--tg-viewport-height, 100vh);
+        --primary-color: ${params.button_color};
+        --primary-transparent-color: ${params.button_color}33;
+        --primary-dark-color: ${params.link_color};
+        --primary-inverse-color: ${params.button_text_color};
+        --secondary-color: ${params.link_color};
+        --bg-color: ${params.bg_color};
+        --bg-secondary-color: ${params.secondary_bg_color};
+        --text-color: ${params.text_color};
+        --text-hint-color: ${params.hint_color};
+        --viewport-height: var(--tg-viewport-height, 100vh);
         `;
     }
 
@@ -47,10 +57,17 @@
 <svelte:component this={dynamicPage} {...params} />
 
 <Modal bind:this={modalWin}>
-    <svelte:component this={$modal} {modalWin} />
+    {#await $modal}
+        <div style="padding: 1rem; text-align: center;">Загрузка...</div>
+    {:then {default: modalContent}} 
+        <svelte:component this={modalContent} {modalWin} />
+    {/await}
 </Modal> 
 <Alert bind:this={alert} />
 
 <style>
     @import '../../styles/styles.css';
+    :global(body) {
+        background-color: var(--bg-color);
+    }
 </style>
