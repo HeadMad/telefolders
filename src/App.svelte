@@ -11,7 +11,7 @@
     const { page, params } = route(window.location.pathname);
 
     error.subscribe((err) => alert && err && alert.show(err, 1000));
-    modal.subscribe(() => modalWin && modalWin.show());
+    modal.subscribe(() => modalWin && modalWin.open());
 
     onMount(async () => {
         try {

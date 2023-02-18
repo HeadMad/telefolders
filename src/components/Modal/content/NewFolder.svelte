@@ -17,8 +17,8 @@
     </label> -->
   </div>
   <div class="form-row right">
-    <button class="ghost" style:color="tomato" on:click={modalWin.hide}>Закрыть</button>
-    <button class="ghost" on:click={modalWin.hide}>OK</button>
+    <button class="ghost" style:color="tomato" on:click={modalWin.close}>Закрыть</button>
+    <button class="ghost" on:click={modalWin.close}>OK</button>
   </div>
 </div>
 

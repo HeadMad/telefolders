@@ -8,7 +8,7 @@
     let modalVisible = false;
     let botAnswer;
     function sendInBot() {
-    send('sendInBot', [rawData, {
+    send('sendInBot', [rawData, 
       method: 'sendMessage',
       text: 'Hello from web app'
     }])

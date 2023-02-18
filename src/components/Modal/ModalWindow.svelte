@@ -1,13 +1,13 @@
 <script>
   // import IconClose from "svelte-mdi/svg/close.svelte";
   export let visible = false;
-  export const show = () => visible = true;
-  export const hide = () => visible = false;
+  export const open = () => visible = true;
+  export const close = () => visible = false;
 </script>
 
 {#if visible}
   <div class="modal">
-    <div class="overlay" on:click={hide} />
+    <div class="overlay" on:click={close} />
     <div class="window"><slot/></div>
   </div>
 {/if}
